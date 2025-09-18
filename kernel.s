@@ -15,8 +15,8 @@ kernel_entry:
   mov ds,ax
   mov es,ax
   mov ss,ax
-  mov bp,0x8000
-  mov sp,bp
+  mov sp,0x8000
+  ;mov sp,bp
   sti
 
   mov ax,0x0003
@@ -25,12 +25,15 @@ kernel_entry:
   mov ah,0x00 
   mov al,0x03 
   int 0x10
-
+ 
   mov si,L1
-  call print
+  call print2
+
+  mov si,L1 
+  call print ; please,why my char isnt printed? print2 is also doesnt printed
 
   mov al,'A'
-  mov ah,0x0E 
+  mov ah,0x0E ; but this is printed ;-;
   int 0x10
 
   jmp L01
@@ -48,6 +51,16 @@ print:
   mov ah,0x0E 
   int 0x10 
   jmp print
+
+print2:
+
+  mov al,[si]
+  mov ah,0x0E
+  int 0x10 
+  cmp al,0 
+  je L0X 
+  inc si 
+  jmp print2
   
 L0X:
   

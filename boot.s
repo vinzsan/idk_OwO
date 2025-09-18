@@ -1,7 +1,9 @@
 [bits 16]
 [org 0x7C00]
+
 mov [boot_drive],dl
-kernel_loc equ 0x1000
+
+STAGE2_LOCATION equ 0x1000
 
 entry:
   
@@ -15,7 +17,7 @@ entry:
   mov sp,bp
   sti
 
-  mov bx,kernel_loc
+  mov bx,STAGE2_LOCATION
   mov dh,20 
   ;mov [boot_drive],dl
 
@@ -31,7 +33,7 @@ entry:
   mov si,L2 
   call print
 
-  jmp kernel_loc
+  jmp STAGE2_LOCATION
 
   jmp halt
 
